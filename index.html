@@ -1,0 +1,1594 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>iStock Apple Shop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<style id="estilo">/* Visual no estilo Apple: fundo cinza claro, cartões brancos, azul do sistema, tipografia grande e justa, botões em pílula. */
+:root {
+  --bg: #F5F5F7;
+  --card: #FFFFFF;
+  --ink: #1D1D1F;
+  --muted: #6E6E73;
+  --line: #D2D2D7;
+  --fill: #E8E8ED;
+  --blue: #0071E3;
+  --blue-hover: #0077ED;
+  --blue-ink: #FFFFFF;
+  --blue-soft: #E6F1FC;
+  --danger: #D70015;
+  --ok: #248A3D;
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", Inter, "Helvetica Neue", Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #000000;
+    --card: #1C1C1E;
+    --ink: #F5F5F7;
+    --muted: #A1A1A6;
+    --line: #38383A;
+    --fill: #2C2C2E;
+    --blue: #2997FF;
+    --blue-hover: #47A5FF;
+    --blue-ink: #FFFFFF;
+    --blue-soft: #0C2438;
+    --danger: #FF453A;
+    --ok: #30D158;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #000000;
+  --card: #1C1C1E;
+  --ink: #F5F5F7;
+  --muted: #A1A1A6;
+  --line: #38383A;
+  --fill: #2C2C2E;
+  --blue: #2997FF;
+  --blue-hover: #47A5FF;
+  --blue-ink: #FFFFFF;
+  --blue-soft: #0C2438;
+  --danger: #FF453A;
+  --ok: #30D158;
+  color-scheme: dark;
+}
+
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 17px;
+  line-height: 1.47;
+  letter-spacing: -0.022em;
+  -webkit-font-smoothing: antialiased;
+  padding-block: 0 56px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+button, input, textarea, select { font: inherit; letter-spacing: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+
+.wrap { max-width: 560px; margin-inline: auto; }
+.wrap.wide { max-width: 920px; }
+
+/* topo */
+.top { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding-block: 18px 12px; min-width: 0; }
+.brand { font-weight: 600; font-size: 17px; overflow-wrap: anywhere; }
+.stepno { font-size: 14px; color: var(--muted); flex: none; }
+.bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 36px; }
+.bar i { height: 4px; border-radius: 4px; background: var(--fill); }
+.bar i.on { background: var(--blue); }
+
+/* telas */
+.screen { display: grid; gap: 24px; }
+.screen.enter { animation: rise .38s cubic-bezier(.2,.7,.2,1) both; }
+.stack-s { display: grid; gap: 12px; }
+[hidden] { display: none !important; }
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .screen.enter { animation: none; } * { transition: none !important; } }
+h1 { margin: 0; font-size: clamp(32px, 9vw, 48px); line-height: 1.07; font-weight: 700; letter-spacing: -0.03em; text-wrap: balance; }
+h2 { margin: 0; font-size: 21px; line-height: 1.2; font-weight: 600; letter-spacing: -0.02em; }
+.lead { margin: 0; font-size: 19px; line-height: 1.42; color: var(--muted); text-wrap: pretty; }
+.cap { margin: 0; font-size: 13px; font-weight: 600; letter-spacing: 0; text-transform: uppercase; color: var(--muted); }
+
+/* campos */
+.field { display: grid; gap: 6px; }
+.field label { font-size: 14px; color: var(--muted); font-weight: 500; }
+.inp {
+  width: 100%; min-height: 52px; padding: 12px 16px;
+  background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+  font-size: 17px;
+}
+.inp::placeholder { color: var(--muted); opacity: .8; }
+.inp:focus { border-color: var(--blue); outline: 3px solid var(--blue-soft); outline-offset: 0; }
+textarea.inp { min-height: 120px; resize: vertical; }
+
+/* listas e opções */
+.list { background: var(--card); border-radius: 18px; overflow: hidden; }
+.opt {
+  appearance: none; width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  min-height: 58px; padding: 14px 18px; text-align: left;
+  background: transparent; border: 0; border-bottom: 1px solid var(--line);
+  font-size: 17px;
+}
+.list .opt:last-child { border-bottom: 0; }
+.opt .sub { display: block; font-size: 14px; color: var(--muted); }
+.opt[aria-checked="true"]::after { content: "\2713"; color: var(--blue); font-weight: 700; font-size: 20px; flex: none; }
+.opt:hover { background: var(--fill); }
+
+.cards { display: grid; gap: 10px; }
+.cardopt {
+  appearance: none; text-align: left; width: 100%;
+  background: var(--card); border: 2px solid transparent; border-radius: 18px; padding: 16px 18px;
+  display: grid; gap: 2px;
+}
+.cardopt b { font-weight: 600; font-size: 19px; }
+.cardopt span { color: var(--muted); font-size: 15px; }
+.cardopt[aria-checked="true"] { border-color: var(--blue); }
+
+.seg { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill {
+  appearance: none; border: 0; border-radius: 980px; padding: 11px 20px; min-height: 44px;
+  background: var(--card); font-weight: 500;
+}
+.pill small { display: block; font-size: 12px; color: var(--muted); font-weight: 400; }
+.pill[aria-checked="true"] { background: var(--blue); color: var(--blue-ink); }
+.pill[aria-checked="true"] small { color: var(--blue-ink); opacity: .85; }
+
+.sw-row {
+  appearance: none; width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 14px;
+  min-height: 58px; padding: 12px 18px; text-align: left;
+  background: transparent; border: 0; border-bottom: 1px solid var(--line);
+}
+.list .sw-row:last-child { border-bottom: 0; }
+.sw { position: relative; flex: none; width: 51px; height: 31px; border-radius: 31px; background: var(--fill); transition: background-color .2s ease; }
+.sw::after { content: ""; position: absolute; top: 2px; left: 2px; width: 27px; height: 27px; border-radius: 50%; background: #fff; box-shadow: 0 2px 4px rgba(0,0,0,.25); transition: transform .2s ease; }
+.sw-row[aria-checked="true"] .sw { background: var(--ok); }
+.sw-row[aria-checked="true"] .sw::after { transform: translateX(20px); }
+.sw-row .desc { display: block; font-size: 14px; color: var(--muted); }
+
+/* botões */
+.actions { display: grid; gap: 10px; margin-top: 4px; }
+.btn {
+  appearance: none; display: inline-flex; justify-content: center; align-items: center; text-align: center;
+  width: 100%; min-height: 52px; padding: 0 28px; border: 0; border-radius: 980px;
+  background: var(--blue); color: var(--blue-ink); font-size: 17px; font-weight: 600; text-decoration: none;
+  transition: background-color .15s ease, opacity .15s ease;
+}
+.btn:hover { background: var(--blue-hover); }
+.btn[disabled], .btn[aria-disabled="true"] { opacity: .35; cursor: not-allowed; }
+.btn.alt { background: var(--fill); color: var(--blue); }
+.link { appearance: none; background: none; border: 0; color: var(--blue); font-size: 17px; padding: 10px; min-height: 44px; text-align: center; }
+.note { margin: 0; font-size: 14px; line-height: 1.45; color: var(--muted); text-align: center; text-wrap: pretty; }
+.err { color: var(--danger); }
+
+/* resultado */
+.big { font-size: clamp(60px, 19vw, 96px); font-weight: 700; letter-spacing: -0.045em; line-height: 1; font-variant-numeric: tabular-nums; }
+.hero { display: grid; gap: 10px; }
+.rcpt { background: var(--card); border-radius: 18px; padding: 6px 18px; font-variant-numeric: tabular-nums; }
+.rcpt .r { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); min-width: 0; }
+.rcpt .r:last-child { border-bottom: 0; }
+.rcpt .r span:first-child { color: var(--muted); }
+.rcpt .r span:last-child { font-weight: 600; text-align: right; overflow-wrap: anywhere; }
+.rcpt .r.sum span:first-child { color: var(--ink); font-weight: 600; }
+.rcpt .sub { display: block; font-size: 13px; font-weight: 400; color: var(--muted); }
+
+.fine { margin-top: 36px; text-align: center; font-size: 13px; color: var(--muted); }
+.fine a { color: var(--muted); }
+
+/* administração */
+.ahead { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 12px; padding-block: 28px 8px; }
+.ahead h1 { font-size: clamp(28px, 7vw, 40px); }
+.tabs { display: flex; gap: 6px; overflow-x: auto; padding: 4px; background: var(--fill); border-radius: 12px; margin-block: 16px 20px; }
+.tab { appearance: none; border: 0; background: transparent; padding: 9px 16px; border-radius: 9px; white-space: nowrap; font-size: 15px; font-weight: 500; color: var(--muted); }
+.tab[aria-selected="true"] { background: var(--card); color: var(--ink); box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+.stack { display: grid; gap: 14px; }
+.acard { background: var(--card); border-radius: 16px; padding: 16px; display: grid; gap: 12px; min-width: 0; }
+.arow { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 10px; min-width: 0; }
+.arow .grow { flex: 1 1 200px; min-width: 0; }
+.arow .num { flex: 0 1 130px; min-width: 0; }
+.afield { display: grid; gap: 4px; min-width: 0; }
+.afield > span { font-size: 12px; color: var(--muted); font-weight: 500; }
+.acard .inp { min-height: 44px; padding: 8px 12px; border-radius: 10px; }
+.btn-s { appearance: none; border: 0; border-radius: 980px; padding: 9px 16px; min-height: 40px; background: var(--fill); color: var(--blue); font-size: 15px; font-weight: 500; }
+.btn-s:hover { background: var(--blue-soft); }
+.btn-s.danger { color: var(--danger); }
+.btn-s.solid { background: var(--blue); color: var(--blue-ink); }
+.btn-s.solid:hover { background: var(--blue-hover); }
+.btn-s[disabled] { opacity: .4; cursor: not-allowed; }
+.pubbar {
+  position: sticky; bottom: 12px; z-index: 5; margin-top: 24px;
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+  background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 12px 16px;
+  box-shadow: 0 6px 24px rgba(0,0,0,.12);
+}
+.pubbar .st { font-size: 15px; color: var(--muted); min-width: 0; overflow-wrap: anywhere; }
+.pubbar .st.dirty { color: var(--ink); font-weight: 500; }
+.tablewrap { overflow-x: auto; background: var(--card); border-radius: 16px; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; min-width: 760px; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { color: var(--muted); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0; white-space: nowrap; }
+tr:last-child td { border-bottom: 0; }
+td.n { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.empty { padding: 28px 16px; text-align: center; color: var(--muted); }
+.warn { background: var(--blue-soft); border-radius: 12px; padding: 12px 14px; font-size: 15px; }
+
+/* ilustração, cores e parcelas */
+.opt.var { justify-content: flex-start; gap: 14px; }
+.opt.var .grow { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.opt .price { font-variant-numeric: tabular-nums; font-weight: 600; flex: none; }
+.swatch { width: 26px; height: 26px; border-radius: 50%; border: 1px solid rgba(128,128,128,.45); flex: none; }
+select.inp { appearance: auto; }
+.asub { display: grid; gap: 10px; padding: 12px; background: var(--soft, var(--fill)); border-radius: 12px; min-width: 0; }
+.arow.vrow { align-items: flex-end; }
+.afield.tom { flex: 0 0 64px; }
+.colorpick { width: 56px; height: 44px; padding: 2px; border: 1px solid var(--line); border-radius: 10px; background: var(--card); cursor: pointer; }
+.feegrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 10px; }
+
+/* fotos, logo, aparência, acesso */
+.photo-box { display: flex; flex-direction: column; align-items: center; gap: 8px; background: #FFFFFF; border-radius: 22px; padding: 16px 16px 12px; }
+.photo { max-height: 230px; max-width: 100%; object-fit: contain; }
+.photo-cap { margin: 0; font-size: 13px; color: #6E6E73; text-align: center; }
+.brand-wrap { min-width: 0; }
+img.logo { display: block; max-height: 34px; max-width: 200px; width: auto; object-fit: contain; }
+.ahead img.logo { max-height: 40px; margin-bottom: 6px; }
+.banner { margin-top: 12px; padding: 10px 14px; border-radius: 12px; background: var(--blue-soft); font-size: 14px; }
+.banner a { color: var(--blue); font-weight: 600; }
+.imgctl { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; min-width: 0; }
+.thumb { width: 56px; height: 56px; object-fit: contain; background: #fff; border: 1px solid var(--line); border-radius: 10px; flex: none; }
+.thumb.logo { width: 96px; height: 40px; }
+.filebtn { position: relative; cursor: pointer; display: inline-flex; align-items: center; }
+.filein { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; font-size: 0; }
+.filebtn:focus-within { outline: 3px solid var(--blue); outline-offset: 2px; }
+.presets { display: flex; flex-wrap: wrap; gap: 10px; }
+.preset { width: 38px; height: 38px; border-radius: 50%; border: 2px solid transparent; box-shadow: 0 0 0 1px rgba(128,128,128,.45); cursor: pointer; }
+.preset[aria-pressed="true"] { border-color: var(--card); box-shadow: 0 0 0 3px var(--blue); }
+form.screen { margin: 0; }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script type="application/json" id="catalog">{"v":3,"versao":1,"loja":{"nome":"iStock Apple Shop","whatsapp":"41997134131","validadeHoras":48,"aviso":"O valor final é confirmado na loja, depois da conferência do aparelho.","avisoPreco":"Os preços dos aparelhos novos acompanham o dólar e podem mudar a qualquer momento.","atualizadoEm":"2026-11-04"},"aparencia":{"logo":"","cor":"","modo":"auto"},"acesso":{"usuario":"admin","salt":"b691b9688a256234458a85c86ea19c07","iter":12000,"hash":"8e7ed6701bc14f49091e761c4733c4e58a017b2d5ad1463de6fec0182aabf1fc","trocar":true},"usados":[{"id":"u0","grupo":"iPhone 17","nome":"iPhone 17","bateriaMin":95,"descBateria":250,"img":"","armazenamentos":[{"gb":256,"valor":4200,"valorPremium":4400}]},{"id":"u1","grupo":"iPhone 17","nome":"iPhone 17 Pro","bateriaMin":95,"descBateria":350,"img":"","armazenamentos":[{"gb":256,"valor":5100,"valorPremium":5300}]},{"id":"u2","grupo":"iPhone 17","nome":"iPhone 17 Pro Max","bateriaMin":95,"descBateria":350,"img":"","armazenamentos":[{"gb":256,"valor":5600,"valorPremium":5900}]},{"id":"u3","grupo":"iPhone 16","nome":"iPhone 16","bateriaMin":90,"descBateria":250,"img":"","armazenamentos":[{"gb":128,"valor":3100},{"gb":256,"valor":3400}]},{"id":"u4","grupo":"iPhone 16","nome":"iPhone 16 Pro","bateriaMin":90,"descBateria":350,"img":"","armazenamentos":[{"gb":128,"valor":3500},{"gb":256,"valor":3700}]},{"id":"u5","grupo":"iPhone 16","nome":"iPhone 16 Pro Max","bateriaMin":90,"descBateria":350,"img":"","armazenamentos":[{"gb":256,"valor":4300},{"gb":512,"valor":4600}]},{"id":"u6","grupo":"iPhone 15","nome":"iPhone 15","bateriaMin":86,"descBateria":250,"img":"","armazenamentos":[{"gb":128,"valor":2200},{"gb":256,"valor":2400}]},{"id":"u7","grupo":"iPhone 15","nome":"iPhone 15 Pro","bateriaMin":86,"descBateria":350,"img":"","armazenamentos":[{"gb":128,"valor":2700},{"gb":256,"valor":3000}]},{"id":"u8","grupo":"iPhone 15","nome":"iPhone 15 Pro Max","bateriaMin":86,"descBateria":350,"img":"","armazenamentos":[{"gb":256,"valor":3300},{"gb":512,"valor":3600}]},{"id":"u9","grupo":"iPhone 14","nome":"iPhone 14","bateriaMin":86,"descBateria":250,"img":"","armazenamentos":[{"gb":128,"valor":1500},{"gb":256,"valor":1800}]},{"id":"u10","grupo":"iPhone 14","nome":"iPhone 14 Pro","bateriaMin":86,"descBateria":350,"img":"","armazenamentos":[{"gb":128,"valor":2100},{"gb":256,"valor":2300}]},{"id":"u11","grupo":"iPhone 14","nome":"iPhone 14 Pro Max","bateriaMin":86,"descBateria":350,"img":"","armazenamentos":[{"gb":128,"valor":2500},{"gb":256,"valor":2700}]},{"id":"u12","grupo":"iPhone 13","nome":"iPhone 13","bateriaMin":84,"descBateria":250,"img":"","armazenamentos":[{"gb":128,"valor":1200},{"gb":256,"valor":1500}]},{"id":"u13","grupo":"iPhone 13","nome":"iPhone 13 Pro","bateriaMin":84,"descBateria":350,"img":"","armazenamentos":[{"gb":128,"valor":1800},{"gb":256,"valor":2100}]},{"id":"u14","grupo":"iPhone 13","nome":"iPhone 13 Pro Max","bateriaMin":84,"descBateria":350,"img":"","armazenamentos":[{"gb":128,"valor":2200},{"gb":256,"valor":2400}]},{"id":"u15","grupo":"iPhone 12","nome":"iPhone 12","bateriaMin":84,"descBateria":250,"img":"","armazenamentos":[{"gb":64,"valor":500},{"gb":128,"valor":700}]},{"id":"u16","grupo":"iPhone 12","nome":"iPhone 12 Pro","bateriaMin":84,"descBateria":350,"img":"","armazenamentos":[{"gb":128,"valor":1000},{"gb":256,"valor":1200}]},{"id":"u17","grupo":"iPhone 12","nome":"iPhone 12 Pro Max","bateriaMin":84,"descBateria":350,"img":"","armazenamentos":[{"gb":128,"valor":1400},{"gb":256,"valor":1600}]}],"novos":[{"id":"n18pm","nome":"iPhone 18 Pro Max","img":"","armazenamentos":[{"gb":256,"variantes":[{"id":"v1","cor":"Azul","hex":"#4A78B5","preco":9399,"detalhe":"","img":""},{"id":"v2","cor":"Bordô","hex":"#5A1E2B","preco":9199,"detalhe":"","img":""},{"id":"v3","cor":"Preto","hex":"#1D1D1F","preco":9299,"detalhe":"","img":""},{"id":"v4","cor":"Prata","hex":"#E3E4E6","preco":8999,"detalhe":"","img":""}]},{"gb":512,"variantes":[{"id":"v5","cor":"Bordô","hex":"#5A1E2B","preco":11199,"detalhe":"","img":""},{"id":"v6","cor":"Azul","hex":"#4A78B5","preco":10799,"detalhe":"","img":""},{"id":"v7","cor":"Preto","hex":"#1D1D1F","preco":10799,"detalhe":"","img":""},{"id":"v8","cor":"Prata","hex":"#E3E4E6","preco":10799,"detalhe":"","img":""}]},{"gb":1024,"variantes":[{"id":"v9","cor":"Bordô","hex":"#5A1E2B","preco":14499,"detalhe":"","img":""},{"id":"v10","cor":"Azul","hex":"#4A78B5","preco":14299,"detalhe":"","img":""}]}]},{"id":"n18p","nome":"iPhone 18 Pro","img":"","armazenamentos":[{"gb":256,"variantes":[{"id":"v11","cor":"Bordô","hex":"#5A1E2B","preco":7999,"detalhe":"","img":""},{"id":"v12","cor":"Preto","hex":"#1D1D1F","preco":7999,"detalhe":"","img":""},{"id":"v13","cor":"Azul","hex":"#4A78B5","preco":7999,"detalhe":"","img":""},{"id":"v14","cor":"Prata","hex":"#E3E4E6","preco":7999,"detalhe":"","img":""}]},{"gb":512,"variantes":[{"id":"v15","cor":"Preto","hex":"#1D1D1F","preco":9599,"detalhe":"","img":""},{"id":"v16","cor":"Prata","hex":"#E3E4E6","preco":9599,"detalhe":"","img":""},{"id":"v17","cor":"Bordô","hex":"#5A1E2B","preco":9599,"detalhe":"","img":""},{"id":"v18","cor":"Azul","hex":"#4A78B5","preco":9599,"detalhe":"","img":""}]}]},{"id":"n17pm","nome":"iPhone 17 Pro Max","img":"","armazenamentos":[{"gb":256,"variantes":[{"id":"v19","cor":"Prata","hex":"#E3E4E6","preco":7399,"detalhe":"e-SIM","img":""},{"id":"v20","cor":"Laranja","hex":"#E8742B","preco":7199,"detalhe":"e-SIM","img":""},{"id":"v21","cor":"Azul","hex":"#4A78B5","preco":7199,"detalhe":"e-SIM","img":""}]},{"gb":512,"variantes":[{"id":"v22","cor":"Prata","hex":"#E3E4E6","preco":8999,"detalhe":"e-SIM","img":""},{"id":"v23","cor":"Azul","hex":"#4A78B5","preco":8899,"detalhe":"e-SIM","img":""},{"id":"v24","cor":"Laranja","hex":"#E8742B","preco":8979,"detalhe":"e-SIM","img":""}]}]},{"id":"n17p","nome":"iPhone 17 Pro","img":"","armazenamentos":[{"gb":256,"variantes":[{"id":"v25","cor":"Prata","hex":"#E3E4E6","preco":6999,"detalhe":"e-SIM","img":""},{"id":"v26","cor":"Laranja","hex":"#E8742B","preco":6799,"detalhe":"e-SIM","img":""}]}]},{"id":"n17","nome":"iPhone 17","img":"","armazenamentos":[{"gb":256,"variantes":[{"id":"v27","cor":"Branco","hex":"#F5F5F0","preco":5699,"detalhe":"Chip físico + e-SIM","img":""},{"id":"v28","cor":"Preto","hex":"#1D1D1F","preco":5699,"detalhe":"Chip físico + e-SIM","img":""},{"id":"v29","cor":"Lavanda","hex":"#B9A7D6","preco":5699,"detalhe":"Chip físico + e-SIM","img":""},{"id":"v30","cor":"Verde","hex":"#8BA888","preco":5599,"detalhe":"e-SIM","img":""},{"id":"v31","cor":"Azul","hex":"#4A78B5","preco":5599,"detalhe":"e-SIM","img":""}]}]},{"id":"n17e","nome":"iPhone 17e","img":"","armazenamentos":[{"gb":256,"variantes":[{"id":"v32","cor":"Branco","hex":"#F5F5F0","preco":4099,"detalhe":"Chip físico + e-SIM","img":""},{"id":"v33","cor":"Rosa","hex":"#F2C4CF","preco":4099,"detalhe":"Chip físico + e-SIM","img":""}]}]},{"id":"n16","nome":"iPhone 16","img":"","armazenamentos":[{"gb":128,"variantes":[{"id":"v34","cor":"Preto","hex":"#1D1D1F","preco":4599,"detalhe":"Chip físico + e-SIM","img":""}]}]},{"id":"n15","nome":"iPhone 15","img":"","armazenamentos":[{"gb":128,"variantes":[{"id":"v35","cor":"Rosa","hex":"#F2C4CF","preco":3999,"detalhe":"Chip físico + e-SIM","img":""},{"id":"v36","cor":"Preto","hex":"#1D1D1F","preco":3999,"detalhe":"Chip físico + e-SIM","img":""}]}]},{"id":"nduo","nome":"iPhone Duo","img":"","armazenamentos":[{"gb":256,"variantes":[{"id":"v37","cor":"Azul-noite","hex":"#1E2A44","preco":16999,"detalhe":"","img":""},{"id":"v38","cor":"Branco-estelar","hex":"#F3F0E8","preco":16999,"detalhe":"","img":""}]},{"gb":512,"variantes":[{"id":"v39","cor":"Azul-noite","hex":"#1E2A44","preco":18299,"detalhe":"","img":""},{"id":"v40","cor":"Branco-estelar","hex":"#F3F0E8","preco":18299,"detalhe":"","img":""}]}]}],"semCaixa":100,"individuais":["Peças não originais","Face ID inativo","Tela paralela","Trincas","Amassados","Outro defeito"],"parcelas":{"taxaVenda":2.89,"assume":"cliente","ate":18,"taxas":[3.09,1.7,2.55,3.4,4.25,5.1,5.95,6.8,7.65,8.5,9.35,10.2,10.4,11.2,12,12.8,13.6,14.4]}}</script>
+<script id="codigo">(function () {
+  "use strict";
+
+  var root = document.getElementById("app");
+  var EMBED = document.getElementById("catalog").textContent;
+  var catalog = JSON.parse(EMBED);
+  var embedAcesso = JSON.parse(EMBED).acesso;
+  var baseVersao = catalog.versao;
+  var savedJson = JSON.stringify(catalog);
+
+  var KEY_DRAFT = "troca_rascunho_v3";
+  var KEY_LEADS = "troca_cadastros_v3";
+  var KEY_SESSION = "troca_adm";
+
+  function sget(s, k) { try { return s.getItem(k); } catch (e) { return null; } }
+  function sset(s, k, v) { try { s.setItem(k, v); return true; } catch (e) { return false; } }
+  function sdel(s, k) { try { s.removeItem(k); } catch (e) { /* sem armazenamento */ } }
+  function isAdmin() { return sget(window.sessionStorage, KEY_SESSION) === "1"; }
+
+  /* ------------------------------------------------------------------ utilidades */
+
+  function append(n, c) {
+    if (c === null || c === undefined || c === false) return;
+    if (Array.isArray(c)) { c.forEach(function (x) { append(n, x); }); return; }
+    n.appendChild(typeof c === "string" ? document.createTextNode(c) : c);
+  }
+  function h(tag, attrs) {
+    var n = document.createElement(tag);
+    attrs = attrs || {};
+    Object.keys(attrs).forEach(function (k) {
+      var v = attrs[k];
+      if (v === null || v === undefined || v === false) return;
+      if (k === "class") n.className = v;
+      else if (k === "text") n.textContent = v;
+      else if (k === "value") n.value = v;
+      else if (k.slice(0, 2) === "on") n.addEventListener(k.slice(2), v);
+      else n.setAttribute(k, v === true ? "" : v);
+    });
+    for (var i = 2; i < arguments.length; i++) append(n, arguments[i]);
+    return n;
+  }
+
+  var BRL = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
+  var BRL2 = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  function money(n) { return BRL.format(n).replace(/ /g, " "); }
+  function money2(n) { return BRL2.format(n).replace(/ /g, " "); }
+  function gbLabel(gb) { return gb >= 1024 ? (gb / 1024) + " TB" : gb + " GB"; }
+  function uid(p) { return p + Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
+  function byId(list, id) {
+    for (var i = 0; i < list.length; i++) if (list[i].id === id) return list[i];
+    return null;
+  }
+  function byGb(model, gb) {
+    if (!model) return null;
+    for (var i = 0; i < model.armazenamentos.length; i++) if (model.armazenamentos[i].gb === gb) return model.armazenamentos[i];
+    return null;
+  }
+  function sortedStorages(model) {
+    return model.armazenamentos.slice().sort(function (a, b) { return a.gb - b.gb; });
+  }
+  function digits(s) { return String(s || "").replace(/\D/g, ""); }
+  function fmtPhone(s) {
+    var d = digits(s).slice(0, 11);
+    if (d.length <= 2) return d;
+    if (d.length <= 6) return "(" + d.slice(0, 2) + ") " + d.slice(2);
+    if (d.length <= 10) return "(" + d.slice(0, 2) + ") " + d.slice(2, 6) + "-" + d.slice(6);
+    return "(" + d.slice(0, 2) + ") " + d.slice(2, 7) + "-" + d.slice(7);
+  }
+  function pad(n) { return String(n).padStart(2, "0"); }
+  function stamp(d) {
+    return pad(d.getDate()) + "/" + pad(d.getMonth() + 1) + "/" + d.getFullYear() + " " + pad(d.getHours()) + ":" + pad(d.getMinutes());
+  }
+  function isoDay(d) { return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()); }
+  function brDay(iso) { var m = String(iso || "").match(/^(\d{4})-(\d{2})-(\d{2})$/); return m ? m[3] + "/" + m[2] + "/" + m[1] : ""; }
+  function waNumber(raw) {
+    var d = digits(raw);
+    if (d.length === 10 || d.length === 11) return "55" + d;
+    if (d.length === 12 || d.length === 13) return d;
+    return "";
+  }
+  function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+  function grupoDe(m) { return m.grupo || m.nome; }
+  function grupos(list) {
+    var seen = [];
+    list.forEach(function (m) { var g = grupoDe(m); if (seen.indexOf(g) < 0) seen.push(g); });
+    return seen;
+  }
+  function minNovo(model) {
+    var m = Infinity;
+    model.armazenamentos.forEach(function (a) { a.variantes.forEach(function (x) { if (x.preco < m) m = x.preco; }); });
+    return m === Infinity ? 0 : m;
+  }
+  function minNovoGb(st) {
+    var m = Infinity;
+    st.variantes.forEach(function (x) { if (x.preco < m) m = x.preco; });
+    return m === Infinity ? 0 : m;
+  }
+  function byVar(st, id) {
+    if (!st) return null;
+    for (var i = 0; i < st.variantes.length; i++) if (st.variantes[i].id === id) return st.variantes[i];
+    return null;
+  }
+
+  /* ------------------------------------------------------------------ senha (SHA-256 em JavaScript puro) */
+
+  var K256 = [
+    0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
+    0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
+    0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
+    0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7, 0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
+    0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13, 0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
+    0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3, 0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
+    0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
+    0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
+  ];
+  function ror(x, n) { return (x >>> n) | (x << (32 - n)); }
+  function sha256hex(str) {
+    var bytes = [], i, c;
+    for (i = 0; i < str.length; i++) {
+      c = str.charCodeAt(i);
+      if (c < 128) bytes.push(c);
+      else if (c < 2048) bytes.push(192 | (c >> 6), 128 | (c & 63));
+      else if (c >= 0xd800 && c < 0xdc00 && i + 1 < str.length) {
+        c = 0x10000 + ((c & 0x3ff) << 10) + (str.charCodeAt(++i) & 0x3ff);
+        bytes.push(240 | (c >> 18), 128 | ((c >> 12) & 63), 128 | ((c >> 6) & 63), 128 | (c & 63));
+      } else bytes.push(224 | (c >> 12), 128 | ((c >> 6) & 63), 128 | (c & 63));
+    }
+    var len = bytes.length;
+    bytes.push(0x80);
+    while (bytes.length % 64 !== 56) bytes.push(0);
+    var hi = Math.floor(len * 8 / 4294967296), lo = (len * 8) >>> 0;
+    bytes.push((hi >>> 24) & 255, (hi >>> 16) & 255, (hi >>> 8) & 255, hi & 255, (lo >>> 24) & 255, (lo >>> 16) & 255, (lo >>> 8) & 255, lo & 255);
+    var H = [0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a, 0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19];
+    var w = new Array(64);
+    for (var o = 0; o < bytes.length; o += 64) {
+      for (i = 0; i < 16; i++) w[i] = (bytes[o + 4 * i] << 24) | (bytes[o + 4 * i + 1] << 16) | (bytes[o + 4 * i + 2] << 8) | bytes[o + 4 * i + 3];
+      for (i = 16; i < 64; i++) {
+        var s0 = ror(w[i - 15], 7) ^ ror(w[i - 15], 18) ^ (w[i - 15] >>> 3);
+        var s1 = ror(w[i - 2], 17) ^ ror(w[i - 2], 19) ^ (w[i - 2] >>> 10);
+        w[i] = (w[i - 16] + s0 + w[i - 7] + s1) | 0;
+      }
+      var a = H[0], b = H[1], cc = H[2], d = H[3], e = H[4], f = H[5], g = H[6], hh = H[7];
+      for (i = 0; i < 64; i++) {
+        var S1 = ror(e, 6) ^ ror(e, 11) ^ ror(e, 25);
+        var ch = (e & f) ^ (~e & g);
+        var t1 = (hh + S1 + ch + K256[i] + w[i]) | 0;
+        var S0 = ror(a, 2) ^ ror(a, 13) ^ ror(a, 22);
+        var mj = (a & b) ^ (a & cc) ^ (b & cc);
+        var t2 = (S0 + mj) | 0;
+        hh = g; g = f; f = e; e = (d + t1) | 0; d = cc; cc = b; b = a; a = (t1 + t2) | 0;
+      }
+      H[0] = (H[0] + a) | 0; H[1] = (H[1] + b) | 0; H[2] = (H[2] + cc) | 0; H[3] = (H[3] + d) | 0;
+      H[4] = (H[4] + e) | 0; H[5] = (H[5] + f) | 0; H[6] = (H[6] + g) | 0; H[7] = (H[7] + hh) | 0;
+    }
+    return H.map(function (x) { return ("00000000" + (x >>> 0).toString(16)).slice(-8); }).join("");
+  }
+  function hashSenha(senha, salt, iter) {
+    var hx = sha256hex(salt + ":" + senha);
+    for (var i = 1; i < iter; i++) hx = sha256hex(hx + salt);
+    return hx;
+  }
+  function randHex(nBytes) {
+    var out = "", i;
+    try {
+      var arr = new Uint8Array(nBytes);
+      window.crypto.getRandomValues(arr);
+      for (i = 0; i < nBytes; i++) out += ("0" + arr[i].toString(16)).slice(-2);
+      return out;
+    } catch (e) {
+      for (i = 0; i < nBytes; i++) out += ("0" + Math.floor(Math.random() * 256).toString(16)).slice(-2);
+      return out;
+    }
+  }
+  function senhaOk(usuario, senha, ac) {
+    return String(usuario).trim().toLowerCase() === String(ac.usuario).toLowerCase() && hashSenha(senha, ac.salt, ac.iter) === ac.hash;
+  }
+  function novoAcesso(usuario, senha) {
+    var salt = randHex(16), iter = 12000;
+    return { usuario: String(usuario).trim(), salt: salt, iter: iter, hash: hashSenha(senha, salt, iter), trocar: false };
+  }
+
+  /* ------------------------------------------------------------------ aparência (cor, logo e modo) */
+
+  function shade(hex, f) {
+    var n = parseInt(hex.slice(1), 16), r = n >> 16, g = (n >> 8) & 255, b = n & 255;
+    function c(x) { return Math.max(0, Math.min(255, Math.round(f < 0 ? x * (1 + f) : x + (255 - x) * f))); }
+    return "rgb(" + c(r) + "," + c(g) + "," + c(b) + ")";
+  }
+  function rgba(hex, a) {
+    var n = parseInt(hex.slice(1), 16);
+    return "rgba(" + (n >> 16) + "," + ((n >> 8) & 255) + "," + (n & 255) + "," + a + ")";
+  }
+  function luminance(hex) {
+    var n = parseInt(hex.slice(1), 16);
+    return (0.2126 * (n >> 16) + 0.7152 * ((n >> 8) & 255) + 0.0722 * (n & 255)) / 255;
+  }
+  function applyAppearance() {
+    var a = catalog.aparencia || {}, el = document.documentElement;
+    if (a.modo === "claro") el.setAttribute("data-theme", "light");
+    else if (a.modo === "escuro") el.setAttribute("data-theme", "dark");
+    else el.removeAttribute("data-theme");
+    ["--blue", "--blue-hover", "--blue-soft", "--blue-ink"].forEach(function (p) { el.style.removeProperty(p); });
+    if (/^#[0-9a-f]{6}$/i.test(a.cor || "")) {
+      el.style.setProperty("--blue", a.cor);
+      el.style.setProperty("--blue-hover", shade(a.cor, -0.12));
+      el.style.setProperty("--blue-soft", rgba(a.cor, 0.16));
+      el.style.setProperty("--blue-ink", luminance(a.cor) > 0.62 ? "#1D1D1F" : "#FFFFFF");
+    }
+    document.title = (catalog.loja && catalog.loja.nome) || "Troca de iPhone";
+  }
+
+  /* ------------------------------------------------------------------ fotos */
+
+  function processImage(file, maxSide, mime, quality) {
+    return new Promise(function (resolve, reject) {
+      if (!file || !/^image\//.test(file.type)) { reject(new Error("tipo")); return; }
+      var fr = new FileReader();
+      fr.onerror = function () { reject(new Error("leitura")); };
+      fr.onload = function () {
+        var img = new Image();
+        img.onerror = function () { reject(new Error("imagem")); };
+        img.onload = function () {
+          var sc = Math.min(1, maxSide / Math.max(img.width, img.height));
+          var w = Math.max(1, Math.round(img.width * sc)), hgt = Math.max(1, Math.round(img.height * sc));
+          var cv = document.createElement("canvas");
+          cv.width = w; cv.height = hgt;
+          var ctx = cv.getContext("2d");
+          if (mime === "image/jpeg") { ctx.fillStyle = "#FFFFFF"; ctx.fillRect(0, 0, w, hgt); }
+          ctx.drawImage(img, 0, 0, w, hgt);
+          try { resolve(cv.toDataURL(mime, quality)); } catch (e) { reject(e); }
+        };
+        img.src = fr.result;
+      };
+      fr.readAsDataURL(file);
+    });
+  }
+  function photoBox(src, caption) {
+    if (!src) return null;
+    return h("div", { class: "photo-box" },
+      h("img", { class: "photo", src: src, alt: caption || "Foto do aparelho" }),
+      caption ? h("p", { class: "photo-cap", text: caption }) : null);
+  }
+
+  /* ------------------------------------------------------------------ parcelamento */
+
+  function calcParcelas(liquido) {
+    var p = catalog.parcelas, out = [];
+    var taxa = (Number(p.taxaVenda) || 0) / 100;
+    if (!(liquido > 0) || taxa >= 1) return out;
+    var avista = liquido / (1 - taxa);
+    var ate = Math.min(Number(p.ate) || 1, p.taxas.length);
+    for (var n = 1; n <= ate; n++) {
+      var fee = Number(p.taxas[n - 1]);
+      if (!isFinite(fee)) continue;
+      fee = fee / 100;
+      var total;
+      if (p.assume === "lojista") {
+        if (1 - taxa - fee <= 0) continue;
+        total = liquido / (1 - taxa - fee);
+      } else {
+        total = avista * (1 + fee);
+      }
+      out.push({ n: n, parcela: total / n, total: total });
+    }
+    return out;
+  }
+
+  /* ------------------------------------------------------------------ arquivo para hospedar */
+
+  function buildFile(cat) {
+    var json = JSON.stringify(cat).replace(/</g, "\\u003c");
+    var css = document.getElementById("estilo").textContent;
+    var code = document.getElementById("codigo").textContent;
+    var titulo = esc((cat.loja && cat.loja.nome) || "Troca de iPhone");
+    return "<!doctype html>\n<html lang=\"pt-BR\">\n<head>\n<meta charset=\"utf-8\">\n" +
+      "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1,viewport-fit=cover\">\n" +
+      "<title>" + titulo + "</title>\n" +
+      "<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n" +
+      "<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n" +
+      "<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap\">\n" +
+      "<style id=\"estilo\">" + css + "</style>\n</head>\n<body>\n<div id=\"app\"></div>\n" +
+      "<script type=\"application/json\" id=\"catalog\">" + json + "<\/script>\n" +
+      "<script id=\"codigo\">" + code + "<\/script>\n</body>\n</html>\n";
+  }
+
+  async function baixar(nome, texto, mime) {
+    try {
+      if (window.claude && window.claude.use) {
+        var dl = await window.claude.use("downloads");
+        if (dl) { await dl.save({ filename: nome, data: texto }); return "ok"; }
+      }
+    } catch (e) {
+      if (e && e.code === "declined") return "cancelado";
+    }
+    try {
+      var blob = new Blob([texto], { type: mime + ";charset=utf-8" });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      a.href = url; a.download = nome;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(function () { URL.revokeObjectURL(url); }, 5000);
+      return "ok";
+    } catch (e2) { return "erro"; }
+  }
+
+  /* ------------------------------------------------------------------ cliente */
+
+  var STEPS = ["dados", "aparelho", "condicao", "novo", "resultado"];
+  var S = {
+    step: "dados", nome: "", tel: "",
+    grupo: null, usado: null, outro: "", gb: null,
+    bateria: "", caixa: null, garantia: null, indiv: [], outros: "",
+    novo: null, novoGb: null, variante: null, pag: "pix"
+  };
+  var animateNext = true;
+
+  function go(step) {
+    S.step = step;
+    animateNext = true;
+    renderSite();
+    window.scrollTo(0, 0);
+  }
+  function next() {
+    if (S.step === "aparelho") return go(S.usado === "outro" ? "novo" : "condicao");
+    go(STEPS[STEPS.indexOf(S.step) + 1]);
+  }
+  function back() {
+    if (S.step === "novo") return go(S.usado === "outro" ? "aparelho" : "condicao");
+    go(STEPS[STEPS.indexOf(S.step) - 1]);
+  }
+  function restart() {
+    S.grupo = null; S.usado = null; S.outro = ""; S.gb = null;
+    S.bateria = ""; S.caixa = null; S.garantia = null; S.indiv = []; S.outros = "";
+    S.novo = null; S.novoGb = null; S.variante = null; S.pag = "pix";
+    go("aparelho");
+  }
+
+  function field(label, id, control) {
+    return h("div", { class: "field" }, h("label", { for: id, text: label }), control);
+  }
+  function actions(primary, withBack) {
+    return h("div", { class: "actions" }, primary, withBack ? h("button", { class: "link", type: "button", text: "Voltar", onclick: back }) : null);
+  }
+  function primary(label, enabled, onclick) {
+    var b = h("button", { class: "btn", type: "button", text: label, onclick: onclick });
+    b.disabled = !enabled;
+    return b;
+  }
+  function pill(label, on, fn, sub) {
+    return h("button", { class: "pill", type: "button", role: "radio", "aria-checked": String(!!on), onclick: fn },
+      label, sub ? h("small", { text: sub }) : null);
+  }
+
+  function brandNode() {
+    var a = catalog.aparencia || {};
+    if (a.logo) return h("img", { class: "logo", src: a.logo, alt: (catalog.loja && catalog.loja.nome) || "Loja" });
+    return h("div", { class: "brand", text: (catalog.loja && catalog.loja.nome) || "Troca de iPhone" });
+  }
+
+  function header(idx) {
+    var bar = h("div", { class: "bar", "aria-hidden": "true" });
+    for (var i = 0; i < 4; i++) bar.appendChild(h("i", { class: i <= idx ? "on" : "" }));
+    return [
+      h("div", { class: "top" }, brandNode(),
+        h("div", { class: "stepno", text: idx < 4 ? "Passo " + (idx + 1) + " de 4" : "Resultado" })),
+      bar
+    ];
+  }
+
+  function sDados() {
+    var btn;
+    function check() {
+      btn.disabled = !(S.nome.trim().length >= 2 && [10, 11].indexOf(digits(S.tel).length) >= 0);
+    }
+    var nome = h("input", {
+      class: "inp", id: "f-nome", type: "text", autocomplete: "given-name", placeholder: "Seu nome", maxlength: "60", value: S.nome,
+      oninput: function (e) { S.nome = e.target.value; check(); }
+    });
+    var tel = h("input", {
+      class: "inp", id: "f-tel", type: "tel", inputmode: "tel", autocomplete: "tel-national", placeholder: "(11) 91234-5678", maxlength: "16", value: S.tel,
+      oninput: function (e) { var f = fmtPhone(e.target.value); e.target.value = f; S.tel = f; check(); }
+    });
+    btn = primary("Continuar", false, function () { go("aparelho"); });
+    var scr = h("section", { class: "screen" },
+      h("h1", { text: "Quanto falta para o seu novo iPhone?" }),
+      h("p", { class: "lead", text: "Avalie seu aparelho em menos de um minuto e veja a diferença na hora, sem falar com ninguém." }),
+      field("Nome", "f-nome", nome),
+      field("WhatsApp", "f-tel", tel),
+      h("div", { class: "actions" }, btn, h("p", { class: "note", text: "Usamos seu contato só para falar sobre esta troca." })));
+    check();
+    return scr;
+  }
+
+  function sAparelho() {
+    var btn;
+    function ok() {
+      if (S.usado === "outro") return S.outro.trim().length >= 2;
+      return !!(S.usado && S.gb);
+    }
+    var gs = grupos(catalog.usados);
+    var linhas = h("div", { class: "seg", role: "radiogroup", "aria-label": "Linha do iPhone" });
+    gs.forEach(function (g) {
+      linhas.appendChild(pill(g, S.grupo === g, function () {
+        if (S.grupo !== g) { S.grupo = g; S.usado = null; S.gb = null; S.bateria = ""; S.garantia = null; }
+        renderSite();
+      }));
+    });
+    linhas.appendChild(pill("Outro", S.usado === "outro", function () {
+      S.grupo = null; S.usado = "outro"; S.gb = null; renderSite();
+    }));
+
+    var blocks = [];
+    var model = S.usado && S.usado !== "outro" ? byId(catalog.usados, S.usado) : null;
+    if (S.grupo) {
+      var list = h("div", { class: "list", role: "radiogroup", "aria-label": "Modelo" });
+      catalog.usados.filter(function (m) { return grupoDe(m) === S.grupo; }).forEach(function (m) {
+        list.appendChild(h("button", {
+          class: "opt", type: "button", role: "radio", "aria-checked": String(S.usado === m.id), text: m.nome,
+          onclick: function () { if (S.usado !== m.id) { S.usado = m.id; S.gb = null; S.bateria = ""; S.garantia = null; } renderSite(); }
+        }));
+      });
+      blocks.push(list);
+    }
+    if (model) {
+      var seg = h("div", { class: "seg", role: "radiogroup", "aria-label": "Capacidade" });
+      sortedStorages(model).forEach(function (a) {
+        seg.appendChild(pill(gbLabel(a.gb), S.gb === a.gb, function () { S.gb = a.gb; renderSite(); }));
+      });
+      blocks.push(h("div", { class: "stack-s" }, h("p", { class: "cap", text: "Capacidade" }), seg));
+      blocks.push(photoBox(model.img, model.nome));
+    } else if (S.usado === "outro") {
+      blocks.push(field("Qual é o modelo?", "f-outro", h("input", {
+        class: "inp", id: "f-outro", type: "text", placeholder: "Ex.: Galaxy S23 ou iPhone 11", maxlength: "60", value: S.outro,
+        oninput: function (e) { S.outro = e.target.value; btn.disabled = !ok(); }
+      })));
+    }
+    btn = primary("Continuar", ok(), next);
+    return h("section", { class: "screen" },
+      h("h1", { text: "Qual é o seu aparelho?" }),
+      h("p", { class: "lead", text: "Escolha a linha, o modelo e a capacidade." }),
+      linhas, blocks, actions(btn, true));
+  }
+
+  function sCondicao() {
+    var m = byId(catalog.usados, S.usado), st = byGb(m, S.gb);
+    var btn, premBox;
+    function premiumOk() { return !!(st && st.valorPremium > 0 && parseInt(S.bateria, 10) === 100); }
+    function valid() {
+      var b = parseInt(S.bateria, 10);
+      if (!(b >= 1 && b <= 100)) return false;
+      if (S.caixa === null) return false;
+      if (premiumOk() && S.garantia === null) return false;
+      return true;
+    }
+    function refresh() { btn.disabled = !valid(); premBox.hidden = !premiumOk(); }
+
+    var bat = h("input", {
+      class: "inp", id: "f-bat", type: "number", inputmode: "numeric", min: "1", max: "100", placeholder: "Ex.: 88", value: S.bateria,
+      oninput: function (e) { S.bateria = e.target.value; refresh(); }
+    });
+    var batField = h("div", { class: "field" },
+      h("label", { for: "f-bat", text: "Saúde da bateria (%)" }), bat,
+      h("p", { class: "note", style: "text-align:left", text: "Veja em Ajustes, Bateria, Saúde da bateria. Para o valor cheio do " + m.nome + ", o mínimo é " + m.bateriaMin + "%." }));
+
+    var caixa = h("div", { class: "stack-s" }, h("p", { class: "cap", text: "Acompanha a caixa?" }),
+      h("div", { class: "seg", role: "radiogroup", "aria-label": "Acompanha a caixa" },
+        pill("Sim", S.caixa === true, function () { S.caixa = true; renderSite(); }),
+        pill("Não", S.caixa === false, function () { S.caixa = false; renderSite(); })));
+
+    premBox = h("div", { class: "stack-s" }, h("p", { class: "cap", text: "Garantia Apple com mais de 6 meses?" }),
+      h("div", { class: "seg", role: "radiogroup", "aria-label": "Garantia Apple com mais de 6 meses" },
+        pill("Sim", S.garantia === true, function () { S.garantia = true; renderSite(); }),
+        pill("Não", S.garantia === false, function () { S.garantia = false; renderSite(); })));
+
+    var defeitos = h("div", { class: "stack-s" },
+      h("h2", { text: "O aparelho tem algum destes itens?" }),
+      h("p", { class: "note", style: "text-align:left", text: "Se marcar algum item ou descrever outro problema, a loja avalia o seu aparelho individualmente." }));
+    if (catalog.individuais.length) {
+      var list = h("div", { class: "list" });
+      catalog.individuais.forEach(function (nome) {
+        var on = S.indiv.indexOf(nome) >= 0;
+        list.appendChild(h("button", {
+          class: "sw-row", type: "button", role: "switch", "aria-checked": String(on),
+          onclick: function () {
+            var k = S.indiv.indexOf(nome);
+            if (k >= 0) S.indiv.splice(k, 1); else S.indiv.push(nome);
+            renderSite();
+          }
+        }, h("span", { text: nome }), h("span", { class: "sw" })));
+      });
+      defeitos.appendChild(list);
+    }
+    defeitos.appendChild(h("div", { class: "field" },
+      h("label", { for: "f-outros", text: "Outros (descreva o problema)" }),
+      h("textarea", {
+        class: "inp", id: "f-outros", maxlength: "400", placeholder: "Ex.: o aparelho reinicia sozinho de vez em quando",
+        value: S.outros, oninput: function (e) { S.outros = e.target.value; }
+      })));
+
+    btn = primary("Continuar", false, next);
+    var scr = h("section", { class: "screen" },
+      h("h1", { text: "Como está o seu " + m.nome + "?" }),
+      h("p", { class: "lead", text: "Responda com sinceridade. A conferência final é feita na loja." }),
+      photoBox(m.img, m.nome),
+      batField, caixa, premBox, defeitos, actions(btn, true));
+    refresh();
+    return scr;
+  }
+
+  function sNovo() {
+    var list = h("div", { class: "list", role: "radiogroup", "aria-label": "iPhone novo" });
+    catalog.novos.forEach(function (m) {
+      list.appendChild(h("button", {
+        class: "opt", type: "button", role: "radio", "aria-checked": String(S.novo === m.id),
+        onclick: function () { if (S.novo !== m.id) { S.novo = m.id; S.novoGb = null; S.variante = null; } renderSite(); }
+      }, h("span", {}, m.nome, h("span", { class: "sub", text: "a partir de " + money(minNovo(m)) }))));
+    });
+    var model = byId(catalog.novos, S.novo);
+    var st = model ? byGb(model, S.novoGb) : null;
+    var blocks = [];
+    if (model) {
+      var seg = h("div", { class: "seg", role: "radiogroup", "aria-label": "Capacidade do iPhone novo" });
+      sortedStorages(model).forEach(function (a) {
+        seg.appendChild(pill(gbLabel(a.gb), S.novoGb === a.gb, function () {
+          S.novoGb = a.gb;
+          S.variante = a.variantes.length === 1 ? a.variantes[0].id : null;
+          renderSite();
+        }, "a partir de " + money(minNovoGb(a))));
+      });
+      blocks.push(h("div", { class: "stack-s" }, h("p", { class: "cap", text: "Capacidade" }), seg));
+    }
+    if (st) {
+      var vlist = h("div", { class: "list", role: "radiogroup", "aria-label": "Cor" });
+      st.variantes.forEach(function (x) {
+        vlist.appendChild(h("button", {
+          class: "opt var", type: "button", role: "radio", "aria-checked": String(S.variante === x.id),
+          onclick: function () { S.variante = x.id; renderSite(); }
+        },
+          h("span", { class: "swatch", style: "background:" + x.hex }),
+          h("span", { class: "grow" }, x.cor, x.detalhe ? h("span", { class: "sub", text: x.detalhe }) : null),
+          h("span", { class: "price", text: money(x.preco) })));
+      });
+      blocks.push(h("div", { class: "stack-s" }, h("p", { class: "cap", text: "Cor" }), vlist));
+    }
+    var chosen = st ? byVar(st, S.variante) : null;
+    var img = null;
+    if (model) img = photoBox((chosen && chosen.img) || model.img, model.nome + (chosen ? " · " + chosen.cor : ""));
+    return h("section", { class: "screen" },
+      h("h1", { text: "Qual iPhone você quer levar?" }),
+      h("p", { class: "lead", text: "Escolha o modelo, a capacidade e a cor." }),
+      list, img, blocks,
+      actions(primary("Ver minha avaliação", !!(model && st && chosen), next), true));
+  }
+
+  function usedCalc() {
+    var m = byId(catalog.usados, S.usado), st = byGb(m, S.gb);
+    var bat = parseInt(S.bateria, 10);
+    var premium = !!(st.valorPremium > 0 && bat === 100 && S.garantia === true);
+    var base = premium ? st.valorPremium : st.valor;
+    var descBat = bat < m.bateriaMin ? m.descBateria : 0;
+    var descCaixa = S.caixa === false ? (Number(catalog.semCaixa) || 0) : 0;
+    return { m: m, base: base, premium: premium, descBat: descBat, descCaixa: descCaixa, bat: bat, valor: Math.max(0, base - descBat - descCaixa) };
+  }
+
+  function calc() {
+    var nm = byId(catalog.novos, S.novo), ng = byGb(nm, S.novoGb), v = byVar(ng, S.variante);
+    var r = {
+      novoNome: nm.nome, cor: v.cor, detalhe: v.detalhe, preco: v.preco, img: v.img || nm.img,
+      outro: S.usado === "outro", individual: false, indiv: [], descricao: S.outros.trim()
+    };
+    if (r.outro) return r;
+    var u = usedCalc();
+    r.u = u;
+    r.usadoNome = u.m.nome;
+    r.indiv = S.indiv.slice();
+    if (r.indiv.length || r.descricao) { r.individual = true; return r; }
+    r.valor = u.valor;
+    r.dif = Math.max(0, r.preco - u.valor);
+    return r;
+  }
+
+  function novoLabel(r) {
+    return r.novoNome + " " + gbLabel(S.novoGb) + " " + r.cor;
+  }
+
+  function payText(r) {
+    if (S.pag === "pix") return "Pix à vista " + money2(r.dif);
+    var p = calcParcelas(r.dif).filter(function (x) { return x.n === S.pag; })[0];
+    return p ? p.n + "x de " + money2(p.parcela) + " (total " + money2(p.total) + ")" : "Pix à vista " + money2(r.dif);
+  }
+
+  function leadMessage(r) {
+    var l = ["*Novo orçamento de troca*", "Cliente: " + S.nome.trim(), "WhatsApp: " + S.tel];
+    if (r.outro) {
+      l.push("Aparelho: " + S.outro.trim() + " (avaliar na loja)");
+    } else {
+      var ap = r.usadoNome + " " + gbLabel(S.gb);
+      if (r.individual) ap += " (avaliação individual" + (r.indiv.length ? ": " + r.indiv.join(", ") : "") + ")";
+      l.push("Aparelho: " + ap);
+      l.push("Bateria: " + r.u.bat + "%");
+      l.push("Caixa: " + (S.caixa ? "sim" : "não"));
+      if (r.descricao) l.push("Descrição do defeito: " + r.descricao.replace(/\s+/g, " "));
+    }
+    l.push("Quer: " + novoLabel(r) + (r.detalhe ? " (" + r.detalhe + ")" : ""));
+    if (!r.outro && !r.individual) {
+      l.push("Avaliação do aparelho: " + money(r.valor));
+      l.push("Diferença: " + money(r.dif));
+      l.push("Pagamento: " + payText(r));
+    }
+    l.push("Data: " + stamp(new Date()));
+    return l.join("\n");
+  }
+
+  function sResultado() {
+    var r = calc();
+    var num = waNumber(catalog.loja.whatsapp);
+    var hint = h("p", { class: "note", text: "Seu contato e esta avaliação seguem para o WhatsApp da loja." });
+    var box = h("textarea", { class: "inp", readonly: true, hidden: true, "aria-label": "Texto da avaliação" });
+    var semValor = r.outro || r.individual;
+    var ctaLabel = semValor ? "Enviar para avaliação" : "Concluir pelo WhatsApp";
+
+    var cta, duvida = null;
+    if (num) {
+      cta = h("a", { class: "btn", href: "#", target: "_blank", rel: "noopener", text: ctaLabel });
+      cta.addEventListener("click", function () {
+        cta.href = "https://wa.me/" + num + "?text=" + encodeURIComponent(leadMessage(r));
+        hint.textContent = "Abrimos o WhatsApp com tudo preenchido. Falta só tocar em enviar lá.";
+      });
+      var d = "Olá! Estou simulando a troca" + (r.outro ? " do meu " + S.outro.trim() : " do meu " + r.usadoNome) + " por um " + novoLabel(r) + " e tenho uma dúvida.";
+      duvida = h("a", { class: "btn alt", href: "https://wa.me/" + num + "?text=" + encodeURIComponent(d), target: "_blank", rel: "noopener", text: "Tirar uma dúvida" });
+    } else {
+      cta = h("button", {
+        class: "btn", type: "button", text: "Copiar minha avaliação",
+        onclick: function () {
+          var msg = leadMessage(r);
+          function manual() { hint.textContent = "Não consegui copiar automaticamente. Selecione o texto abaixo e copie."; box.hidden = false; box.value = msg; box.focus(); box.select(); }
+          try { navigator.clipboard.writeText(msg).then(function () { hint.textContent = "Texto copiado. Cole no WhatsApp da loja para enviar."; }, manual); } catch (e) { manual(); }
+        }
+      });
+    }
+
+    var hero, rows, pay = null;
+    var novoRow = h("div", { class: "r" }, h("span", { text: "iPhone novo" }),
+      h("span", {}, money(r.preco), h("span", { class: "sub", text: novoLabel(r) + (r.detalhe ? " · " + r.detalhe : "") })));
+
+    if (semValor) {
+      var motivo;
+      if (r.outro) motivo = "O seu " + S.outro.trim() + " precisa ser avaliado pela loja.";
+      else {
+        var partes = r.indiv.map(function (x) { return x.toLowerCase(); });
+        if (r.descricao) partes.push("o problema que você descreveu");
+        motivo = "Por causa de " + partes.join(", ") + ", o seu aparelho é avaliado individualmente.";
+      }
+      hero = h("div", { class: "hero" },
+        h("p", { class: "cap", text: "Avaliação individual" }),
+        h("div", { class: "big", style: "font-size:clamp(32px,9vw,48px);letter-spacing:-0.03em;line-height:1.08", text: "Vamos olhar o seu aparelho de perto" }),
+        h("p", { class: "lead", text: motivo + " Envie seus dados e a loja responde pelo WhatsApp com o valor da troca." }));
+      rows = h("div", { class: "rcpt" }, novoRow,
+        h("div", { class: "r" }, h("span", { text: "Seu aparelho" }),
+          h("span", {}, r.outro ? S.outro.trim() : r.usadoNome + " " + gbLabel(S.gb), h("span", { class: "sub", text: "avaliação na loja" }))));
+    } else {
+      var cobre = r.dif === 0;
+      hero = h("div", { class: "hero" },
+        h("p", { class: "cap", text: cobre ? "Seu aparelho cobre o valor" : "Você paga a diferença de" }),
+        h("div", { class: "big", text: money(r.dif) }),
+        h("p", { class: "lead", text: (cobre ? "Seu aparelho vale tanto quanto o " : "para levar o ") + novoLabel(r) + (cobre ? ". Fale com a loja para combinar os detalhes." : ".") }));
+      var u = r.u;
+      var det = r.usadoNome + " " + gbLabel(S.gb) + " · bateria " + u.bat + "%" + (S.caixa ? "" : " · sem caixa");
+      var desc = [];
+      if (u.descBat) desc.push("bateria abaixo de " + u.m.bateriaMin + "% − " + money(u.descBat));
+      if (u.descCaixa) desc.push("sem caixa − " + money(u.descCaixa));
+      var usadoSpan = h("span", {}, "− " + money(r.valor), h("span", { class: "sub", text: det }));
+      if (u.premium) usadoSpan.appendChild(h("span", { class: "sub", text: "bateria 100% com garantia Apple" }));
+      if (desc.length) usadoSpan.appendChild(h("span", { class: "sub", text: "descontos: " + desc.join(" · ") }));
+      rows = h("div", { class: "rcpt" }, novoRow,
+        h("div", { class: "r" }, h("span", { text: "Seu aparelho" }), usadoSpan),
+        h("div", { class: "r sum" }, h("span", { text: "Você paga" }), h("span", { text: money(r.dif) })));
+
+      if (!cobre) {
+        var plist = h("div", { class: "list", role: "radiogroup", "aria-label": "Forma de pagamento" });
+        plist.appendChild(h("button", {
+          class: "opt var", type: "button", role: "radio", "aria-checked": String(S.pag === "pix"),
+          onclick: function () { S.pag = "pix"; renderSite(); }
+        }, h("span", { class: "grow" }, "À vista no Pix"), h("span", { class: "price", text: money2(r.dif) })));
+        calcParcelas(r.dif).forEach(function (p) {
+          plist.appendChild(h("button", {
+            class: "opt var", type: "button", role: "radio", "aria-checked": String(S.pag === p.n),
+            onclick: function () { S.pag = p.n; renderSite(); }
+          }, h("span", { class: "grow" }, p.n + "x de " + money2(p.parcela), h("span", { class: "sub", text: "total " + money2(p.total) }))));
+        });
+        pay = h("div", { class: "stack-s" }, h("h2", { text: "Como prefere pagar a diferença?" }), plist,
+          h("p", { class: "note", style: "text-align:left", text: "Parcelamento no cartão de crédito. A opção escolhida segue na mensagem para a loja." }));
+      }
+    }
+
+    var notes = [];
+    var horas = Number(catalog.loja.validadeHoras) || 0;
+    if (horas) notes.push("Orçamento válido por " + horas + " horas.");
+    if (catalog.loja.aviso) notes.push(catalog.loja.aviso);
+    if (catalog.loja.avisoPreco) notes.push(catalog.loja.avisoPreco);
+    if (catalog.loja.atualizadoEm) notes.push("Preços atualizados em " + brDay(catalog.loja.atualizadoEm) + ".");
+
+    return h("section", { class: "screen" },
+      hero, photoBox(r.img, novoLabel(r)), rows, pay,
+      h("div", { class: "actions" }, cta, box, hint, duvida,
+        h("button", { class: "link", type: "button", text: "Simular outro iPhone", onclick: function () { go("novo"); } }),
+        h("button", { class: "link", type: "button", text: "Começar de novo", onclick: restart })),
+      notes.length ? h("p", { class: "note", text: notes.join(" ") }) : null);
+  }
+
+  function renderSite() {
+    var idx = STEPS.indexOf(S.step);
+    var screen = ({ dados: sDados, aparelho: sAparelho, condicao: sCondicao, novo: sNovo, resultado: sResultado })[S.step]();
+    if (animateNext) screen.classList.add("enter");
+    animateNext = false;
+    var banner = isAdmin() ? h("div", { class: "banner" }, "Modo administrador: você está vendo o seu rascunho, só neste navegador. ",
+      h("a", { href: "#admin", text: "Voltar à administração" })) : null;
+    root.replaceChildren(h("div", { class: "wrap" }, banner, header(idx), screen));
+  }
+
+  /* ------------------------------------------------------------------ administração */
+
+  var A = { tab: "usados", status: "", statusErr: false, leads: [], host: null, tableHost: null, barSt: null, barBtn: null, discBtn: null, confirmId: null, confirmTimer: null, discConfirm: false, draftOk: true, saveTimer: null, falhas: 0, bloqueioAte: 0 };
+
+  function isDirty() { return JSON.stringify(catalog) !== savedJson; }
+  function saveDraft() {
+    A.draftOk = sset(window.localStorage, KEY_DRAFT, JSON.stringify({ base: baseVersao, cat: catalog }));
+    updateBar();
+  }
+  function loadDraft() {
+    try {
+      var d = JSON.parse(sget(window.localStorage, KEY_DRAFT) || "null");
+      if (d && d.base === baseVersao && d.cat && d.cat.v === catalog.v) { catalog = d.cat; return true; }
+    } catch (e) { /* rascunho inválido */ }
+    return false;
+  }
+  function updateBar() {
+    if (!A.barSt) return;
+    var dirty = isDirty();
+    A.barSt.className = "st" + (dirty || A.statusErr ? " dirty" : "");
+    if (A.status) A.barSt.textContent = A.status;
+    else if (!A.draftOk) A.barSt.textContent = "Não consegui guardar o rascunho neste navegador. Baixe o site atualizado agora para não perder as alterações.";
+    else if (dirty) A.barSt.textContent = "Rascunho salvo. Baixe o site atualizado e envie ao provedor.";
+    else A.barSt.textContent = "Nenhuma alteração em relação ao site publicado.";
+    A.barBtn.disabled = !dirty;
+    if (A.discBtn) { A.discBtn.hidden = !dirty; A.discBtn.textContent = A.discConfirm ? "Confirmar descarte?" : "Descartar alterações"; }
+  }
+  function touch() {
+    A.status = ""; A.statusErr = false; A.discConfirm = false;
+    applyAppearance();
+    clearTimeout(A.saveTimer);
+    A.saveTimer = setTimeout(saveDraft, 350);
+    updateBar();
+  }
+  function setStatus(msg, err) { A.status = msg; A.statusErr = !!err; updateBar(); }
+
+  function numInput(val, cb, step) {
+    return h("input", {
+      class: "inp", type: "number", inputmode: "decimal", min: "0", step: step || "1", value: val ? String(val) : "",
+      oninput: function (e) { var v = e.target.value === "" ? 0 : Number(e.target.value); cb(isFinite(v) ? v : 0); touch(); }
+    });
+  }
+  function textInput(val, cb, ph, label) {
+    return h("input", {
+      class: "inp", type: "text", value: val || "", placeholder: ph || "", "aria-label": label || ph || "",
+      oninput: function (e) { cb(e.target.value); touch(); }
+    });
+  }
+  function selInput(opts, val, cb, label) {
+    var s = h("select", { class: "inp", "aria-label": label });
+    opts.forEach(function (o) {
+      var op = h("option", { value: o[0], text: o[1] });
+      if (String(o[0]) === String(val)) op.selected = true;
+      s.appendChild(op);
+    });
+    s.addEventListener("change", function (e) { cb(e.target.value); touch(); });
+    return s;
+  }
+  function afield(label, control, cls) {
+    return h("label", { class: "afield" + (cls ? " " + cls : "") }, h("span", { text: label }), control);
+  }
+  function sbtn(label, cls, onclick) {
+    return h("button", { class: "btn-s" + (cls ? " " + cls : ""), type: "button", text: label, onclick: onclick });
+  }
+  function imgCtl(src, onSet, label, logo) {
+    var wrap = h("div", { class: "imgctl" });
+    if (src) wrap.appendChild(h("img", { class: "thumb" + (logo ? " logo" : ""), src: src, alt: "" }));
+    var inp = h("input", { type: "file", accept: "image/*", class: "filein", "aria-label": label });
+    inp.addEventListener("change", function () {
+      var f = inp.files && inp.files[0];
+      if (!f) return;
+      setStatus("Processando a imagem…", false);
+      processImage(f, logo ? 480 : 640, logo ? "image/png" : "image/jpeg", 0.82).then(function (url) {
+        onSet(url); touch(); drawPanel();
+      }, function () {
+        setStatus("Não foi possível usar esse arquivo. Envie uma imagem JPG, PNG ou WebP.", true);
+      });
+    });
+    wrap.appendChild(h("label", { class: "btn-s filebtn" }, src ? "Trocar" : (logo ? "Enviar logo" : "Enviar foto"), inp));
+    if (src) wrap.appendChild(sbtn("Remover", "", function () { onSet(""); touch(); drawPanel(); }));
+    return wrap;
+  }
+
+  function usadosPanel() {
+    var box = h("div", { class: "stack" });
+    box.appendChild(h("p", { class: "lead", text: "Valores que você paga pelo aparelho do cliente. A bateria mínima e o desconto valem por modelo. A foto é opcional." }));
+    catalog.usados.forEach(function (m, mi) {
+      var card = h("div", { class: "acard" });
+      card.appendChild(h("div", { class: "arow" },
+        afield("Linha (agrupa na escolha)", textInput(m.grupo, function (v) { m.grupo = v; }, "Ex.: iPhone 15", "Linha"), "grow"),
+        afield("Modelo", textInput(m.nome, function (v) { m.nome = v; }, "Ex.: iPhone 15 Pro", "Modelo"), "grow")));
+      card.appendChild(h("div", { class: "arow" },
+        afield("Bateria mínima (%)", numInput(m.bateriaMin, function (v) { m.bateriaMin = v; }), "num"),
+        afield("Desconto bateria (R$)", numInput(m.descBateria, function (v) { m.descBateria = v; }), "num"),
+        afield("Foto do aparelho", imgCtl(m.img, function (u) { m.img = u; }, "Foto de " + (m.nome || "modelo")), "grow")));
+      m.armazenamentos.forEach(function (a, ai) {
+        card.appendChild(h("div", { class: "arow" },
+          afield("Capacidade (GB)", numInput(a.gb, function (v) { a.gb = v; }), "num"),
+          afield("Valor (R$)", numInput(a.valor, function (v) { a.valor = v; }), "num"),
+          afield("Bateria 100% + garantia (R$, opcional)", numInput(a.valorPremium, function (v) { if (v > 0) a.valorPremium = v; else delete a.valorPremium; }), "num"),
+          sbtn("Remover", "", function () { m.armazenamentos.splice(ai, 1); touch(); drawPanel(); })));
+      });
+      card.appendChild(h("div", { class: "arow" },
+        sbtn("Adicionar capacidade", "", function () { m.armazenamentos.push({ gb: 128, valor: 0 }); touch(); drawPanel(); }),
+        sbtn("Remover modelo", "danger", function () { catalog.usados.splice(mi, 1); touch(); drawPanel(); })));
+      box.appendChild(card);
+    });
+    box.appendChild(h("div", {}, sbtn("Adicionar aparelho usado", "solid", function () {
+      catalog.usados.push({ id: uid("u"), grupo: "", nome: "", bateriaMin: 86, descBateria: 250, img: "", armazenamentos: [{ gb: 128, valor: 0 }] });
+      touch(); drawPanel();
+    })));
+    return box;
+  }
+
+  function novaVariante() { return { id: uid("v"), cor: "", hex: "#8E8E93", preco: 0, detalhe: "", img: "" }; }
+
+  function novosPanel() {
+    var box = h("div", { class: "stack" });
+    box.appendChild(h("p", { class: "lead", text: "Preços dos iPhones novos por capacidade e cor. A foto do modelo aparece sempre; a foto de uma cor, se você enviar, substitui a do modelo quando o cliente escolhe aquela cor." }));
+    catalog.novos.forEach(function (m, mi) {
+      var card = h("div", { class: "acard" });
+      card.appendChild(h("div", { class: "arow" },
+        afield("Modelo", textInput(m.nome, function (v) { m.nome = v; }, "Ex.: iPhone 18 Pro Max", "Modelo"), "grow"),
+        afield("Foto do modelo", imgCtl(m.img, function (u) { m.img = u; }, "Foto de " + (m.nome || "modelo")), "grow"),
+        sbtn("Remover modelo", "danger", function () { catalog.novos.splice(mi, 1); touch(); drawPanel(); })));
+      m.armazenamentos.forEach(function (a, ai) {
+        var sub = h("div", { class: "asub" });
+        sub.appendChild(h("div", { class: "arow" },
+          afield("Capacidade (GB)", numInput(a.gb, function (v) { a.gb = v; }), "num"),
+          sbtn("Adicionar cor", "", function () { a.variantes.push(novaVariante()); touch(); drawPanel(); }),
+          sbtn("Remover capacidade", "danger", function () { m.armazenamentos.splice(ai, 1); touch(); drawPanel(); })));
+        a.variantes.forEach(function (x, xi) {
+          var color = h("input", {
+            class: "colorpick", type: "color", value: /^#[0-9a-f]{6}$/i.test(x.hex) ? x.hex : "#8E8E93", "aria-label": "Tom de " + (x.cor || "nova cor"),
+            oninput: function (e) { x.hex = e.target.value; touch(); }
+          });
+          sub.appendChild(h("div", { class: "arow vrow" },
+            afield("Cor", textInput(x.cor, function (v) { x.cor = v; }, "Ex.: Azul", "Nome da cor"), "grow"),
+            afield("Tom", color, "tom"),
+            afield("Preço (R$)", numInput(x.preco, function (v) { x.preco = v; }), "num"),
+            afield("Observação", textInput(x.detalhe, function (v) { x.detalhe = v; }, "Ex.: e-SIM", "Observação"), "grow"),
+            afield("Foto desta cor (opcional)", imgCtl(x.img, function (u) { x.img = u; }, "Foto da cor " + (x.cor || "nova")), "grow"),
+            sbtn("Remover", "", function () { a.variantes.splice(xi, 1); touch(); drawPanel(); })));
+        });
+        card.appendChild(sub);
+      });
+      card.appendChild(h("div", { class: "arow" }, sbtn("Adicionar capacidade", "", function () {
+        m.armazenamentos.push({ gb: 256, variantes: [novaVariante()] }); touch(); drawPanel();
+      })));
+      box.appendChild(card);
+    });
+    box.appendChild(h("div", {}, sbtn("Adicionar iPhone novo", "solid", function () {
+      catalog.novos.push({ id: uid("n"), nome: "", img: "", armazenamentos: [{ gb: 256, variantes: [novaVariante()] }] });
+      touch(); drawPanel();
+    })));
+    return box;
+  }
+
+  function regrasPanel() {
+    var box = h("div", { class: "stack" });
+    box.appendChild(h("div", { class: "acard" },
+      afield("Desconto quando o aparelho não tem caixa (R$)", numInput(catalog.semCaixa, function (v) { catalog.semCaixa = v; }), "num")));
+    box.appendChild(h("h2", { text: "Avaliação individual" }));
+    box.appendChild(h("p", { class: "lead", text: "Se o cliente marcar qualquer um destes itens, ou descrever outro problema na caixa Outros, o site não mostra valor e envia o caso para você avaliar." }));
+    catalog.individuais.forEach(function (nome, i) {
+      box.appendChild(h("div", { class: "acard" }, h("div", { class: "arow" },
+        afield("Item", textInput(nome, function (v) { catalog.individuais[i] = v; }, "Ex.: Face ID inativo", "Item"), "grow"),
+        sbtn("Remover", "danger", function () { catalog.individuais.splice(i, 1); touch(); drawPanel(); }))));
+    });
+    box.appendChild(h("div", {}, sbtn("Adicionar item", "solid", function () { catalog.individuais.push(""); touch(); drawPanel(); })));
+    return box;
+  }
+
+  function parcelasPanel() {
+    var p = catalog.parcelas;
+    var box = h("div", { class: "stack" });
+    box.appendChild(h("p", { class: "lead", text: "Mesma conta do seu simulador de maquininha. O cliente vê o valor da diferença em Pix e em parcelas, sem ver as taxas." }));
+    var ateOpts = [];
+    for (var i = 1; i <= p.taxas.length; i++) ateOpts.push([i, i + "x"]);
+    box.appendChild(h("div", { class: "acard" }, h("div", { class: "arow" },
+      afield("Taxa de venda (%)", numInput(p.taxaVenda, function (v) { p.taxaVenda = v; }, "any"), "num"),
+      afield("Quem assume o parcelamento", selInput([["cliente", "Cliente assume"], ["lojista", "Eu assumo"]], p.assume, function (v) { p.assume = v; }, "Quem assume"), "grow"),
+      afield("Mostrar até", selInput(ateOpts, p.ate, function (v) { p.ate = Number(v); }, "Mostrar até"), "num"))));
+    var tab = h("div", { class: "acard" }, h("h2", { text: "Taxas por parcela (%)" }));
+    var grid = h("div", { class: "feegrid" });
+    p.taxas.forEach(function (t, i) {
+      grid.appendChild(afield((i + 1) + "x", numInput(t, function (v) { p.taxas[i] = v; }, "any"), "num"));
+    });
+    tab.appendChild(grid);
+    box.appendChild(tab);
+    return box;
+  }
+
+  var PRESETS = [["Azul", "#0071E3"], ["Verde", "#2E9D50"], ["Laranja", "#F56300"], ["Vermelho", "#D92D3F"], ["Roxo", "#7B4FE0"], ["Grafite", "#3A3A3C"]];
+
+  function aparenciaPanel() {
+    var a = catalog.aparencia;
+    var box = h("div", { class: "stack" });
+    box.appendChild(h("div", { class: "acard" }, h("h2", { text: "Logo da empresa" }),
+      h("p", { class: "note", style: "text-align:left", text: "Aparece no topo do site no lugar do nome da loja. Prefira uma imagem com fundo transparente." }),
+      imgCtl(a.logo, function (u) { a.logo = u; }, "Logo da empresa", true)));
+    var sw = h("div", { class: "presets", role: "group", "aria-label": "Cores prontas" });
+    PRESETS.forEach(function (p) {
+      sw.appendChild(h("button", {
+        class: "preset", type: "button", "aria-label": p[0], title: p[0], "aria-pressed": String((a.cor || "").toLowerCase() === p[1].toLowerCase()), style: "background:" + p[1],
+        onclick: function () { a.cor = p[1]; touch(); drawPanel(); }
+      }));
+    });
+    var custom = h("input", {
+      class: "colorpick", type: "color", value: /^#[0-9a-f]{6}$/i.test(a.cor || "") ? a.cor : "#0071E3", "aria-label": "Outra cor",
+      oninput: function (e) { a.cor = e.target.value; touch(); }
+    });
+    box.appendChild(h("div", { class: "acard" }, h("h2", { text: "Cor do sistema" }),
+      h("p", { class: "note", style: "text-align:left", text: "Cor dos botões e das seleções, no site e na administração." }),
+      h("div", { class: "arow" }, sw, afield("Outra cor", custom, "tom"), sbtn("Voltar ao azul padrão", "", function () { a.cor = ""; touch(); drawPanel(); }))));
+    box.appendChild(h("div", { class: "acard" }, h("h2", { text: "Modo" }),
+      afield("Aparência do site", selInput([["auto", "Automático (segue o aparelho do cliente)"], ["claro", "Sempre claro"], ["escuro", "Sempre escuro"]], a.modo || "auto", function (v) { a.modo = v; }, "Modo"))));
+    return box;
+  }
+
+  function lojaPanel() {
+    var l = catalog.loja;
+    var hint = h("div", { class: "warn" });
+    function refreshHint() {
+      hint.hidden = !!waNumber(l.whatsapp);
+      hint.textContent = "Informe o WhatsApp com DDD (10 ou 11 números). Sem ele, o cliente só consegue copiar a mensagem em vez de enviar para você.";
+    }
+    refreshHint();
+    var tel = h("input", {
+      class: "inp", type: "tel", inputmode: "tel", value: l.whatsapp || "", placeholder: "(41) 99999-9999", "aria-label": "WhatsApp da loja",
+      oninput: function (e) { l.whatsapp = e.target.value; refreshHint(); touch(); }
+    });
+    var aviso = h("textarea", { class: "inp", "aria-label": "Aviso ao cliente", value: l.aviso || "", oninput: function (e) { l.aviso = e.target.value; touch(); } });
+    var avisoPreco = h("textarea", { class: "inp", "aria-label": "Aviso sobre preços", value: l.avisoPreco || "", oninput: function (e) { l.avisoPreco = e.target.value; touch(); } });
+    return h("div", { class: "stack" },
+      h("div", { class: "acard" },
+        afield("Nome da loja", textInput(l.nome, function (v) { l.nome = v; }, "Nome da loja", "Nome da loja")),
+        afield("WhatsApp que recebe os cadastros", tel), hint,
+        afield("Validade do orçamento (horas)", numInput(l.validadeHoras, function (v) { l.validadeHoras = v; }), "num"),
+        afield("Aviso sobre o valor final", aviso),
+        afield("Aviso sobre os preços dos novos", avisoPreco)),
+      h("p", { class: "note", style: "text-align:left", text: "A data de atualização dos preços é preenchida sozinha cada vez que você baixa o site atualizado." }));
+  }
+
+  function contaPanel() {
+    var msg = h("p", { class: "note", role: "status", style: "text-align:left" });
+    var atual = h("input", { class: "inp", id: "c-atual", type: "password", autocomplete: "current-password" });
+    var usuario = h("input", { class: "inp", id: "c-user", type: "text", autocomplete: "username", value: catalog.acesso.usuario });
+    var n1 = h("input", { class: "inp", id: "c-n1", type: "password", autocomplete: "new-password" });
+    var n2 = h("input", { class: "inp", id: "c-n2", type: "password", autocomplete: "new-password" });
+    var btn = sbtn("Atualizar acesso", "solid", function () {
+      msg.className = "note err";
+      if (!senhaOk(catalog.acesso.usuario, atual.value, catalog.acesso)) { msg.textContent = "A senha atual não confere."; return; }
+      if (!usuario.value.trim()) { msg.textContent = "Informe o usuário."; return; }
+      if (n1.value.length < 8) { msg.textContent = "A nova senha precisa ter pelo menos 8 caracteres."; return; }
+      if (n1.value !== n2.value) { msg.textContent = "As duas senhas novas não são iguais."; return; }
+      btn.disabled = true; msg.className = "note"; msg.textContent = "Salvando…";
+      setTimeout(function () {
+        catalog.acesso = novoAcesso(usuario.value, n1.value);
+        touch(); saveDraft();
+        atual.value = ""; n1.value = ""; n2.value = "";
+        msg.textContent = "Acesso atualizado neste rascunho. Ele só passa a valer para os clientes e para o login quando você baixar o site atualizado e enviar ao provedor. Até lá, o login continua com os dados antigos.";
+        btn.disabled = false;
+      }, 30);
+    });
+    return h("div", { class: "stack" },
+      h("p", { class: "lead", text: "Troque o usuário e a senha da administração. Use uma senha longa, que só você conheça." }),
+      h("div", { class: "acard" },
+        field("Senha atual", "c-atual", atual), field("Usuário", "c-user", usuario),
+        field("Nova senha (mínimo 8 caracteres)", "c-n1", n1), field("Repetir a nova senha", "c-n2", n2), btn, msg));
+  }
+
+  /* cadastros (ficam só neste navegador) */
+
+  function loadLeads() {
+    try { var a = JSON.parse(sget(window.localStorage, KEY_LEADS) || "[]"); return Array.isArray(a) ? a : []; } catch (e) { return []; }
+  }
+  function saveLeads() { return sset(window.localStorage, KEY_LEADS, JSON.stringify(A.leads)); }
+
+  function parseLeads(text) {
+    var parts = String(text || "").split(/Novo or[çc]amento de troca/i);
+    parts.shift();
+    var out = [];
+    parts.forEach(function (block) {
+      function f(label) {
+        var m = block.match(new RegExp("(?:^|\\n)[ \\t]*\\**" + label + ":[ \\t]*([^\\n\\r]*)", "i"));
+        return m ? m[1].replace(/\*/g, "").trim() : "";
+      }
+      function num(s) { var d = digits(s); return d ? parseInt(d, 10) : null; }
+      var cliente = f("Cliente"), whats = f("WhatsApp");
+      if (!cliente && !whats) return;
+      var data = f("Data");
+      var ts = Date.now();
+      var m = data.match(/(\d{2})\/(\d{2})\/(\d{4})\s+(\d{2}):(\d{2})/);
+      if (m) ts = new Date(+m[3], +m[2] - 1, +m[1], +m[4], +m[5]).getTime();
+      out.push({
+        id: "l_" + (digits(whats) || "x") + "_" + ts,
+        ts: ts, cliente: cliente, whatsapp: whats, aparelho: f("Aparelho"), bateria: f("Bateria"), caixa: f("Caixa"),
+        descricao: f("Descrição do defeito"), quer: f("Quer"), pagamento: f("Pagamento"),
+        avaliacao: num(f("Avaliação do aparelho")), diferenca: num(f("Diferença"))
+      });
+    });
+    return out;
+  }
+
+  function csvCell(v) { if (v === null || v === undefined) v = ""; return "\"" + String(v).replace(/"/g, "\"\"") + "\""; }
+  function toCsv(rows) {
+    var head = ["Data", "Cliente", "WhatsApp", "Aparelho atual", "Bateria", "Caixa", "Descrição do defeito", "iPhone desejado", "Pagamento", "Avaliação do aparelho (R$)", "Diferença (R$)"];
+    var lines = [head.map(csvCell).join(";")];
+    rows.forEach(function (r) {
+      lines.push([stamp(new Date(r.ts || 0)), r.cliente, r.whatsapp, r.aparelho, r.bateria, r.caixa, r.descricao, r.quer, r.pagamento, r.avaliacao, r.diferenca].map(csvCell).join(";"));
+    });
+    return lines.join("\r\n");
+  }
+
+  function drawLeads() {
+    var host = A.tableHost;
+    if (!host || A.tab !== "cadastros") return;
+    host.replaceChildren();
+    if (!A.leads.length) {
+      host.appendChild(h("div", { class: "empty", text: "Nenhum cadastro ainda. Cole acima as mensagens recebidas no WhatsApp." }));
+      return;
+    }
+    var tbody = h("tbody");
+    A.leads.forEach(function (r) {
+      var wn = waNumber(r.whatsapp);
+      var del = h("button", {
+        class: "btn-s danger", type: "button", text: A.confirmId === r.id ? "Confirmar?" : "Remover",
+        onclick: function () {
+          if (A.confirmId !== r.id) {
+            A.confirmId = r.id; clearTimeout(A.confirmTimer);
+            A.confirmTimer = setTimeout(function () { A.confirmId = null; drawLeads(); }, 3500);
+            drawLeads(); return;
+          }
+          A.confirmId = null;
+          A.leads = A.leads.filter(function (x) { return x.id !== r.id; });
+          saveLeads(); drawLeads();
+        }
+      });
+      tbody.appendChild(h("tr", {},
+        h("td", { class: "n", text: stamp(new Date(r.ts || 0)) }),
+        h("td", { text: r.cliente || "" }),
+        h("td", { class: "n" }, wn ? h("a", { href: "https://wa.me/" + wn, target: "_blank", rel: "noopener", text: r.whatsapp }) : (r.whatsapp || "")),
+        h("td", { text: (r.aparelho || "") + (r.bateria ? " · " + r.bateria : "") + (r.descricao ? " · " + r.descricao : "") }),
+        h("td", { text: r.quer || "" }),
+        h("td", { text: r.pagamento || "" }),
+        h("td", { class: "n", text: r.diferenca === null || r.diferenca === undefined ? "" : money(r.diferenca) }),
+        h("td", {}, del)));
+    });
+    host.appendChild(h("div", { class: "tablewrap" }, h("table", {},
+      h("thead", {}, h("tr", {},
+        ["Data", "Cliente", "WhatsApp", "Aparelho", "Quer", "Pagamento", "Diferença", ""].map(function (t) { return h("th", { text: t }); }))),
+      tbody)));
+  }
+
+  function cadastrosPanel() {
+    var info = h("p", { class: "lead", text: "Quando o cliente toca em enviar, o cadastro chega no seu WhatsApp. Copie as mensagens recebidas, cole aqui e a lista fica organizada, pronta para virar planilha." });
+    var aviso = h("p", { class: "note", style: "text-align:left", text: "Esta lista fica salva só neste navegador. Baixe a planilha de vez em quando para guardar uma cópia." });
+    var ta = h("textarea", { class: "inp", id: "paste", placeholder: "Cole aqui uma ou várias mensagens “Novo orçamento de troca”", "aria-label": "Mensagens do WhatsApp" });
+    var msg = h("p", { class: "note", style: "text-align:left", text: "" });
+    var addBtn = sbtn("Adicionar à lista", "solid", function () {
+      var items = parseLeads(ta.value);
+      if (!items.length) { msg.className = "note err"; msg.textContent = "Não encontrei nenhuma mensagem de orçamento nesse texto."; return; }
+      var ids = {};
+      A.leads.forEach(function (x) { ids[x.id] = true; });
+      var novos = items.filter(function (x) { return !ids[x.id]; });
+      A.leads = A.leads.concat(novos).sort(function (a, b) { return (b.ts || 0) - (a.ts || 0); });
+      var ok = saveLeads();
+      msg.className = ok ? "note" : "note err";
+      msg.textContent = ok ? (novos.length + (novos.length === 1 ? " cadastro adicionado." : " cadastros adicionados.") + (items.length > novos.length ? " " + (items.length - novos.length) + " já estavam na lista." : "")) : "Não consegui guardar a lista neste navegador. Baixe a planilha agora.";
+      ta.value = "";
+      drawLeads();
+    });
+    var csvBtn = sbtn("Baixar planilha (CSV)", "", async function () {
+      if (!A.leads.length) { msg.className = "note err"; msg.textContent = "Não há cadastros para baixar ainda."; return; }
+      var res = await baixar("cadastros-troca.csv", "﻿" + toCsv(A.leads), "text/csv");
+      if (res === "ok") { msg.className = "note"; msg.textContent = "Planilha pronta. Abra no Excel ou no Google Planilhas."; }
+      else if (res === "erro") { msg.className = "note err"; msg.textContent = "Não foi possível baixar agora."; }
+    });
+    A.tableHost = h("div");
+    var panel = h("div", { class: "stack" }, info, aviso, ta, h("div", { class: "arow" }, addBtn, csvBtn), msg, A.tableHost);
+    drawLeads();
+    return panel;
+  }
+
+  var TABS = [
+    { id: "usados", label: "Aparelhos usados" },
+    { id: "novos", label: "iPhones novos" },
+    { id: "regras", label: "Regras" },
+    { id: "parcelas", label: "Parcelamento" },
+    { id: "aparencia", label: "Aparência" },
+    { id: "loja", label: "Loja" },
+    { id: "cadastros", label: "Cadastros" },
+    { id: "conta", label: "Conta" }
+  ];
+
+  function drawPanel() {
+    if (!A.host) return;
+    var p;
+    A.tableHost = null;
+    if (A.tab === "usados") p = usadosPanel();
+    else if (A.tab === "novos") p = novosPanel();
+    else if (A.tab === "regras") p = regrasPanel();
+    else if (A.tab === "parcelas") p = parcelasPanel();
+    else if (A.tab === "aparencia") p = aparenciaPanel();
+    else if (A.tab === "loja") p = lojaPanel();
+    else if (A.tab === "conta") p = contaPanel();
+    else p = cadastrosPanel();
+    A.host.replaceChildren(p);
+  }
+
+  function validate() {
+    var c = catalog, i, j, k, m, a;
+    if (!c.usados.length) return "Cadastre ao menos um aparelho usado.";
+    if (!c.novos.length) return "Cadastre ao menos um iPhone novo.";
+    for (i = 0; i < c.usados.length; i++) {
+      m = c.usados[i];
+      if (!String(m.nome).trim()) return "Dê um nome a todos os aparelhos usados.";
+      if (!m.armazenamentos.length) return m.nome + " precisa de ao menos uma capacidade.";
+      if (!(m.bateriaMin >= 1 && m.bateriaMin <= 100)) return "A bateria mínima de " + m.nome + " deve ficar entre 1 e 100.";
+      for (j = 0; j < m.armazenamentos.length; j++) {
+        a = m.armazenamentos[j];
+        if (!(a.gb > 0)) return "Informe a capacidade em GB de " + m.nome + ".";
+        if (!(a.valor > 0)) return "Informe o valor de " + m.nome + " " + gbLabel(a.gb) + ".";
+      }
+    }
+    for (i = 0; i < c.novos.length; i++) {
+      m = c.novos[i];
+      if (!String(m.nome).trim()) return "Dê um nome a todos os iPhones novos.";
+      if (!m.armazenamentos.length) return m.nome + " precisa de ao menos uma capacidade.";
+      for (j = 0; j < m.armazenamentos.length; j++) {
+        a = m.armazenamentos[j];
+        if (!(a.gb > 0)) return "Informe a capacidade em GB de " + m.nome + ".";
+        if (!a.variantes.length) return m.nome + " " + gbLabel(a.gb) + " precisa de ao menos uma cor.";
+        for (k = 0; k < a.variantes.length; k++) {
+          if (!String(a.variantes[k].cor).trim()) return "Dê um nome a todas as cores de " + m.nome + ".";
+          if (!(a.variantes[k].preco > 0)) return "Informe o preço de " + m.nome + " " + gbLabel(a.gb) + " " + a.variantes[k].cor + ".";
+        }
+      }
+    }
+    for (i = 0; i < c.individuais.length; i++) if (!String(c.individuais[i]).trim()) return "Preencha ou remova os itens de avaliação individual.";
+    var p = c.parcelas;
+    if (!(p.taxaVenda >= 0 && p.taxaVenda < 30)) return "A taxa de venda deve ficar entre 0 e 30%.";
+    for (i = 0; i < p.taxas.length; i++) if (!(p.taxas[i] >= 0 && p.taxas[i] < 60)) return "Confira a taxa da parcela " + (i + 1) + "x.";
+    if (!(p.ate >= 1 && p.ate <= p.taxas.length)) return "Escolha até quantas parcelas mostrar.";
+    return "";
+  }
+
+  function normalize() {
+    var c = catalog;
+    c.usados.forEach(function (m) {
+      m.nome = m.nome.trim(); m.grupo = (m.grupo || "").trim() || m.nome;
+      m.armazenamentos.sort(function (x, y) { return x.gb - y.gb; });
+    });
+    c.novos.forEach(function (m) {
+      m.nome = m.nome.trim();
+      m.armazenamentos.sort(function (x, y) { return x.gb - y.gb; });
+      m.armazenamentos.forEach(function (a) {
+        a.variantes.forEach(function (x) { x.cor = x.cor.trim(); x.detalhe = (x.detalhe || "").trim(); if (!x.id) x.id = uid("v"); });
+      });
+    });
+    c.individuais = c.individuais.map(function (s) { return String(s).trim(); });
+    c.loja.nome = (c.loja.nome || "").trim();
+    c.loja.whatsapp = digits(c.loja.whatsapp);
+    c.loja.aviso = (c.loja.aviso || "").trim();
+    c.loja.avisoPreco = (c.loja.avisoPreco || "").trim();
+    c.loja.atualizadoEm = isoDay(new Date());
+  }
+
+  async function exportar() {
+    var err = validate();
+    if (err) { setStatus(err, true); return; }
+    normalize();
+    catalog.versao = Date.now();
+    A.barBtn.disabled = true;
+    setStatus("Gerando o arquivo…", false);
+    var res = await baixar("index.html", buildFile(catalog), "text/html");
+    saveDraft();
+    if (res === "ok") setStatus("Arquivo index.html baixado. Envie para o seu provedor, no lugar do arquivo antigo.", false);
+    else if (res === "cancelado") setStatus("Download cancelado.", false);
+    else setStatus("Não foi possível baixar o arquivo agora.", true);
+    A.barBtn.disabled = !isDirty();
+  }
+
+  function descartar() {
+    if (!A.discConfirm) { A.discConfirm = true; updateBar(); return; }
+    catalog = JSON.parse(EMBED);
+    sdel(window.localStorage, KEY_DRAFT);
+    A.discConfirm = false;
+    applyAppearance();
+    setStatus("Alterações descartadas.", false);
+    renderPanel();
+  }
+
+  function sair() {
+    sdel(window.sessionStorage, KEY_SESSION);
+    catalog = JSON.parse(EMBED);
+    applyAppearance();
+    location.hash = "";
+    route();
+  }
+
+  /* telas de acesso */
+
+  function renderLogin() {
+    var msg = h("p", { class: "note err", role: "alert", style: "text-align:left" });
+    var user = h("input", { class: "inp", id: "l-user", type: "text", autocomplete: "username", value: embedAcesso.usuario, autocapitalize: "none" });
+    var pass = h("input", { class: "inp", id: "l-pass", type: "password", autocomplete: "current-password" });
+    var btn = h("button", { class: "btn", type: "submit", text: "Entrar" });
+    var form = h("form", { class: "screen enter", novalidate: true },
+      h("h1", { text: "Administração" }),
+      h("p", { class: "lead", text: "Entre com o seu usuário e a sua senha." }),
+      field("Usuário", "l-user", user), field("Senha", "l-pass", pass),
+      h("div", { class: "actions" }, btn, msg, h("a", { class: "link", href: "#", text: "Voltar ao site" })));
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var agora = Date.now();
+      if (agora < A.bloqueioAte) { msg.textContent = "Muitas tentativas. Aguarde " + Math.ceil((A.bloqueioAte - agora) / 1000) + " segundos."; return; }
+      btn.disabled = true; msg.textContent = "";
+      setTimeout(function () {
+        var ok = senhaOk(user.value, pass.value, embedAcesso);
+        btn.disabled = false;
+        if (!ok) {
+          A.falhas++;
+          if (A.falhas >= 5) { A.falhas = 0; A.bloqueioAte = Date.now() + 30000; msg.textContent = "Muitas tentativas. Aguarde 30 segundos."; }
+          else msg.textContent = "Usuário ou senha incorretos.";
+          pass.value = ""; pass.focus();
+          return;
+        }
+        A.falhas = 0;
+        sset(window.sessionStorage, KEY_SESSION, "1");
+        loadDraft();
+        applyAppearance();
+        if (catalog.acesso.trocar) renderTrocar(); else renderPanel();
+      }, 30);
+    });
+    root.replaceChildren(h("div", { class: "wrap" }, h("div", { class: "top" }, brandNode()), form));
+    user.focus();
+  }
+
+  function renderTrocar() {
+    var msg = h("p", { class: "note err", role: "alert", style: "text-align:left" });
+    var user = h("input", { class: "inp", id: "t-user", type: "text", autocomplete: "username", value: catalog.acesso.usuario });
+    var n1 = h("input", { class: "inp", id: "t-n1", type: "password", autocomplete: "new-password" });
+    var n2 = h("input", { class: "inp", id: "t-n2", type: "password", autocomplete: "new-password" });
+    var btn = h("button", { class: "btn", type: "submit", text: "Salvar e entrar" });
+    var form = h("form", { class: "screen enter", novalidate: true },
+      h("h1", { text: "Crie a sua senha" }),
+      h("p", { class: "lead", text: "Você entrou com a senha provisória. Defina uma senha só sua antes de continuar." }),
+      field("Usuário", "t-user", user), field("Nova senha (mínimo 8 caracteres)", "t-n1", n1), field("Repetir a nova senha", "t-n2", n2),
+      h("div", { class: "actions" }, btn, msg,
+        h("p", { class: "note", text: "A nova senha passa a valer no site depois que você baixar o site atualizado e enviar ao provedor." })));
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (!user.value.trim()) { msg.textContent = "Informe o usuário."; return; }
+      if (n1.value.length < 8) { msg.textContent = "A senha precisa ter pelo menos 8 caracteres."; return; }
+      if (n1.value !== n2.value) { msg.textContent = "As duas senhas não são iguais."; return; }
+      btn.disabled = true; msg.textContent = "";
+      setTimeout(function () {
+        catalog.acesso = novoAcesso(user.value, n1.value);
+        saveDraft();
+        renderPanel();
+      }, 30);
+    });
+    root.replaceChildren(h("div", { class: "wrap" }, h("div", { class: "top" }, brandNode()), form));
+    n1.focus();
+  }
+
+  function renderPanel() {
+    A.leads = loadLeads().sort(function (a, b) { return (b.ts || 0) - (a.ts || 0); });
+    A.host = h("div");
+    A.barSt = h("div", { class: "st", role: "status" });
+    A.barBtn = h("button", { class: "btn-s solid", type: "button", text: "Baixar site atualizado", onclick: exportar });
+    A.discBtn = h("button", { class: "btn-s", type: "button", text: "Descartar alterações", onclick: descartar });
+    var tabs = h("div", { class: "tabs", role: "tablist" });
+    TABS.forEach(function (t) {
+      tabs.appendChild(h("button", {
+        class: "tab", type: "button", role: "tab", "aria-selected": String(A.tab === t.id), text: t.label,
+        onclick: function () {
+          A.tab = t.id;
+          Array.prototype.forEach.call(tabs.children, function (b, i) { b.setAttribute("aria-selected", String(TABS[i].id === A.tab)); });
+          drawPanel();
+        }
+      }));
+    });
+    root.replaceChildren(h("div", { class: "wrap wide" },
+      h("div", { class: "ahead" },
+        h("div", {}, brandNode(), h("h1", { text: "Administração" })),
+        h("div", { class: "arow" },
+          h("a", { class: "btn-s", href: "#", text: "Ver o site", style: "text-decoration:none;display:inline-flex;align-items:center" }),
+          sbtn("Sair", "", sair))),
+      tabs, A.host,
+      h("div", { class: "pubbar" }, A.barSt, h("div", { class: "arow" }, A.discBtn, A.barBtn))));
+    drawPanel();
+    updateBar();
+  }
+
+  function route() {
+    if (location.hash === "#admin") {
+      if (isAdmin()) {
+        loadDraft(); applyAppearance();
+        if (catalog.acesso.trocar) renderTrocar(); else renderPanel();
+      } else renderLogin();
+    } else {
+      if (isAdmin()) loadDraft();
+      applyAppearance();
+      animateNext = true; renderSite(); window.scrollTo(0, 0);
+    }
+  }
+  window.addEventListener("hashchange", route);
+  route();
+})();
+</script>
+</body>
+</html>
